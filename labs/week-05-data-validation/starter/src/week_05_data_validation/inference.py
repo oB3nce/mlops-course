@@ -37,6 +37,12 @@ def predict_one(payload: dict, model_path: Path) -> dict:
     # store its report in result["report"]. The report's "passed" field says
     # whether the request meets the contract. If it does not, return the result
     # now, before the model is loaded.
+    validation_report = validate_payload(payload)
+    result["report"] = validation_report
+
+    if not validation_report["passed"]:
+        return result
+    
 
     if not model_path.exists():
         raise FileNotFoundError(

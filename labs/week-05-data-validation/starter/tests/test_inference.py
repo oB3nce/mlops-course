@@ -51,7 +51,7 @@ def test_an_extra_field_is_rejected() -> None:
 # ── predict_one (Exercise 6) ─────────────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercise 6 (optional) — check the request in predict_one, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 6 (optional) — check the request in predict_one, then delete this skip marker.")
 @pytest.mark.parametrize("name", ["illegal", "swapped", "incomplete"])
 def test_a_rejected_request_never_reaches_the_model(name, tmp_path) -> None:
     """There is no model file in tmp_path: loading one would raise FileNotFoundError."""
@@ -66,7 +66,7 @@ def test_a_legal_request_needs_a_model(tmp_path) -> None:
         inference.predict_one(inference.EXAMPLE_PAYLOAD, tmp_path / "model.pkl")
 
 
-@pytest.mark.skip(reason="Exercise 6 (optional) — check the request in predict_one, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 6 (optional) — check the request in predict_one, then delete this skip marker.")
 def test_a_missing_value_is_filled_by_the_trained_model(settings) -> None:
     """A request with insulin = None is legal, and the model's imputer fills it."""
     model_path = settings.models_dir / "model.pkl"
