@@ -46,13 +46,28 @@ acceptance:
   # Stamped onto the MLflow run. Change it whenever a threshold changes.
   criteria_version: "1.0.0"
 
-  # TODO(student) Exercise 3: add the acceptance criteria below `criteria_version`.
-  # Run `make slices` first and choose each value from the numbers it prints.
+  # Thresholds selected from the `make slices` output.
   # The tests read these keys:
   #   minimum:        accuracy, f1, roc_auc (absolute floors)
   #   regression:     primary_metric, max_drop, also_report (a list of metric names)
   #   slice_rules:    min_support, min_positives, min_f1, max_f1_gap
   # A threshold that a constant "no diabetes" classifier clears is not a floor.
+
+  minimum:
+    accuracy: 0.70
+    f1: 0.60
+    roc_auc: 0.80
+
+  regression:
+    primary_metric: f1
+    max_drop: 0.02
+    also_report: [accuracy, roc_auc]
+
+  slice_rules:
+    min_support: 20
+    min_positives: 10
+    min_f1: 0.55
+    max_f1_gap: 0.08
 
   # TODO(student) Exercise 5: add a `fairness` block below `slice_rules`.
   # Run `make fairness` first. Under `fairness`, add one key per gated slice name

@@ -77,7 +77,21 @@ stages:
           cache: false
       - metrics/slices.json:
           cache: false
-
+  gate:
+    cmd: uv run python src/main.py gate
+    deps:
+      - metrics/metrics.json
+      - metrics/slices.json
+      - metrics/baseline.json
+      - models/mlflow_run_id.json
+      - src/week_06_evaluation_pipeline/pipeline.py
+      - src/week_06_evaluation_pipeline/gates.py
+      - src/week_06_evaluation_pipeline/baseline.py
+    params:
+      - acceptance
+    outs:
+      - reports/gate.json:
+          cache: false
   # TODO(student) Exercise 4: add a stage `gate`, run as
   # `uv run python src/main.py gate`. The `evaluate` stage above has the same shape.
   # Deps: metrics/metrics.json, metrics/slices.json, metrics/baseline.json,

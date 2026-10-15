@@ -9,6 +9,8 @@ import mlflow.sklearn
 from mlflow.entities.model_registry import ModelVersion
 from mlflow.tracking import MlflowClient
 
+from week_06_evaluation_pipeline import pipeline
+
 from .config import Settings
 
 
@@ -22,7 +24,11 @@ def register_best_model(settings: Settings, run_id: str) -> ModelVersion:
     # Replace the placeholder `verdict` below with the verdict returned by
     # `require_go` in pipeline.py. The tags below use its "verdict" and
     # "criteria_version" keys.
-    verdict = {"verdict": "not-checked", "criteria_version": "not-checked"}
+    
+    require_go = pipeline.require_go
+    if require_go:
+        from week_06_evaluation_pipeline.pipeline import require_go as require_go_func
+        verdict = require_go_func(settings)
 
     mlflow.set_tracking_uri(settings.mlflow_tracking_uri)
     return mlflow.register_model(
@@ -60,8 +66,13 @@ def promote_to_staging(
     """
     # TODO(student) Exercise 4: refuse here too, with the same `require_go`.
     # Replace the placeholder `verdict` below with the verdict it returns.
-    verdict = {"verdict": "not-checked", "criteria_version": "not-checked",
-               "summary": {"skipped": "?"}}
+    
+    
+    require_go = pipeline.require_go
+    if require_go:
+        from week_06_evaluation_pipeline.pipeline import require_go as require_go_func
+        verdict = require_go_func(settings)
+        
 
     client = MlflowClient(settings.mlflow_tracking_uri)
     name = settings.registered_model_name
