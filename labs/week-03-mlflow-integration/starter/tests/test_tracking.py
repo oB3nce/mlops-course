@@ -21,7 +21,7 @@ from week_03_mlflow_integration.tracking import (
 pytestmark = pytest.mark.live
 
 
-@pytest.mark.skip(reason="Exercises 1-2 — implement log_training_run(), then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-2 — implement log_training_run(), then delete this skip marker.")
 def test_single_run_logged(live_settings) -> None:
     """Exercise 1-2: one run carries params, metrics, tags, and both plots."""
     from week_03_mlflow_integration.tracking import connect
@@ -51,7 +51,7 @@ def test_single_run_logged(live_settings) -> None:
     assert "plots/confusion_matrix.png" in plot_files
 
 
-@pytest.mark.skip(reason="Exercise 3 — implement run_sweep(), then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 3 — implement run_sweep(), then delete this skip marker.")
 def test_sweep_creates_child_run_per_cell(live_settings, sweep_results) -> None:
     """Exercise 3: one child run per grid cell, all distinct, all tagged."""
     assert len(sweep_results) == len(SWEEP_GRID)
@@ -65,7 +65,7 @@ def test_sweep_creates_child_run_per_cell(live_settings, sweep_results) -> None:
         assert "mlflow.parentRunId" in run.data.tags
 
 
-@pytest.mark.skip(reason="Exercise 3 — implement run_sweep(), then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 3 — implement run_sweep(), then delete this skip marker.")
 def test_sweep_preserves_locked_baseline(live_settings, sweep_results) -> None:
     """Exercise 3: the two default cells still reproduce the course's pins.
 
@@ -83,7 +83,7 @@ def test_sweep_preserves_locked_baseline(live_settings, sweep_results) -> None:
     )
 
 
-@pytest.mark.skip(reason="Exercise 4 — implement search_sweep_runs(), then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 4 — implement search_sweep_runs(), then delete this skip marker.")
 def test_search_and_best_run(live_settings, sweep_results) -> None:
     """Exercise 4: the query returns the latest sweep's children, ranked."""
     frame = search_sweep_runs(live_settings)
@@ -100,7 +100,7 @@ def test_search_and_best_run(live_settings, sweep_results) -> None:
     assert search_sweep_runs(live_settings, min_f1=0.99).empty
 
 
-@pytest.mark.skip(reason="Exercise 4 — implement search_sweep_runs(), then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 4 — implement search_sweep_runs(), then delete this skip marker.")
 def test_search_ranks_by_any_metric(live_settings, sweep_results) -> None:
     """Exercise 4: ranking by ROC-AUC picks a different winner than F1."""
     frame = search_sweep_runs(live_settings, metric="roc_auc")
@@ -114,7 +114,7 @@ def test_search_ranks_by_any_metric(live_settings, sweep_results) -> None:
     )
 
 
-@pytest.mark.skip(reason="Exercise 6, part 3 — record git_dirty, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercise 6, part 3 — record git_dirty, then delete this skip marker.")
 def test_run_records_working_tree_state(live_settings, sweep_results) -> None:
     """Exercise 6, part 3: every run says whether its git_commit is the truth."""
     client = MlflowClient(live_settings.mlflow_tracking_uri)
