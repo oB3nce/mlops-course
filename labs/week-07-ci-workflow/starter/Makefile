@@ -305,7 +305,7 @@ ci-local: ensure-env ensure-data
 
 ## The steps of ct.yml: retrain and gate, with no code change
 ct-local: ensure-env ensure-data
-	$(MAKE) --no-print-directory repro
+	$(DVC) repro --force
 	$(MAKE) --no-print-directory gate
 
 ## Plant train.C 0.005, run `make ci`, and restore params.yaml; `make ci` must fail
