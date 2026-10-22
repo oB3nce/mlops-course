@@ -7,8 +7,8 @@ import pytest
 from week_07_ci_workflow import inference
 from week_07_ci_workflow.data import FEATURE_COLUMNS
 
-# TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
-# unit, data, eval or integration.
+# eval: it checks prediction behavior and model outputs, not a live serving connection.
+pytestmark = pytest.mark.eval
 
 
 def test_the_example_payload_is_legal():

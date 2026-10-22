@@ -7,8 +7,8 @@ import yaml
 
 from week_07_ci_workflow.dvc_meta import remote_object_key
 
-# TODO(student) Exercise 3: add this module's layer to the list, next to the guard.
-pytestmark = [pytest.mark.dvc]
+# data: it checks committed dataset pointers and metadata without running DVC.
+pytestmark = [pytest.mark.dvc, pytest.mark.data]
 
 
 def test_dvc_dir_and_dvcignore_exist(dvc_repo) -> None:

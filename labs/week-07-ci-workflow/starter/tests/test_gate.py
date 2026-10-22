@@ -15,8 +15,8 @@ from week_07_ci_workflow import pipeline
 from week_07_ci_workflow.pipeline import ValidationFailed
 from week_07_ci_workflow.validation import read_report
 
-# TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
-# unit, data, eval or integration.
+# data: it checks malformed measurement data blocking downstream stages.
+pytestmark = pytest.mark.data
 
 
 @pytest.fixture

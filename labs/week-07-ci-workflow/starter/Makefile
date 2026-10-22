@@ -286,9 +286,13 @@ ensure-data:
 # TODO(student) Exercise 2: list the targets `ci` runs, in order, after the two
 # ensure-* targets. Reuse targets that already exist above; do not copy their recipes.
 # `make` stops at the first target that fails.
-ci: ensure-env ensure-data
-	@echo "make ci is not written yet (Exercise 2)."
-	@exit 1
+ci: ensure-env ensure-data lint test-unit test-data test-eval repro gate
+	@echo "==> lint";     $(MAKE) --no-print-directory lint
+	@echo "==> unit";     $(MAKE) --no-print-directory test-unit
+	@echo "==> data";     $(MAKE) --no-print-directory test-data
+	@echo "==> eval";     $(MAKE) --no-print-directory test-eval
+	@echo "==> pipeline"; $(MAKE) --no-print-directory repro
+	@echo "==> gate";     $(MAKE) --no-print-directory gate
 
 ## The steps of ci.yml on your machine, in the runner's order
 ci-local: ensure-env ensure-data
