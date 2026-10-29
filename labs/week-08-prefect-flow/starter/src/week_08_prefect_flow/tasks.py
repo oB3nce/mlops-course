@@ -104,14 +104,18 @@ def _run_dvc(settings: Settings, *args: str) -> str:
 # `retry_jitter_factor` here, then decide which tasks below get them.
 # `tests/test_flows.py` asserts your answer — and asserts that the local,
 # deterministic tasks did NOT get them.
+#a) a run_pipeline lokális és determinisztikus, ezért egy valódi hibát az ismétlés nem javít meg csak késlelteti a hibajelzést.
+#b)  register_model új modellverziót hozhat létre, így egy ismétlés duplikált verziót eredményezhet.
+# a task meglévő verziót keres a regisztrálás előtt, ami a már sikeres, de válaszvesztéssel végződő kérés esetén segít, de az ellenőrzés nem zárja ki teljesen a versenyhelyzetet vagy az ismételt regisztrálást.
+
 NETWORK_RETRIES = {
-    "retries": 0,
+    "retries": 3,
     # Doubling, so a service that is restarting gets a chance to finish.
-    # "retry_delay_seconds": exponential_backoff(backoff_factor=2),
+    "retry_delay_seconds": exponential_backoff(backoff_factor=2),
     # Jitter matters more than it looks. Without it, every task that failed at
     # the same moment retries at the same moment, and a service that fell over
     # because of load gets hit by the identical burst that felled it.
-    # "retry_jitter_factor": 0.5,
+    "retry_jitter_factor": 0.5,
 }
 
 
@@ -264,6 +268,36 @@ def verify_params_applied(settings: Settings, requested: dict) -> dict:
     # ships the previous model. Try it — comment out `write_params` in
     # flows.py, run `make flow-params C=0.005`, and watch `run_pipeline`
     # complete.
+    if not requested:
+        return {}
+
+    dvc_lock = settings.project_root / "dvc.lock"
+    if not dvc_lock.exists():
+        raise RuntimeError(f"no dvc.lock found at {dvc_lock} — did the pipeline run?")
+    lock = yaml.safe_load(dvc_lock.read_text()) or {}
+    if not isinstance(lock, dict):
+        raise RuntimeError(f"invalid dvc.lock format at {dvc_lock}: expected a mapping")
+
+    stages = lock.get("stages") or {}
+    if not isinstance(stages, dict):
+        raise RuntimeError(f"invalid dvc.lock format at {dvc_lock}: missing stage mappings")
+    train = stages.get("train") or {}
+    if not isinstance(train, dict):
+        raise RuntimeError(f"invalid dvc.lock format at {dvc_lock}: invalid train stage")
+    train_params = train.get("params") or {}
+    if not isinstance(train_params, dict):
+        raise RuntimeError(f"invalid dvc.lock format at {dvc_lock}: invalid train parameters")
+    actual = train_params.get("params.yaml") or {}
+    if not isinstance(actual, dict):
+        raise RuntimeError(f"invalid dvc.lock format at {dvc_lock}: invalid params.yaml values")
+    for dotted, expected in requested.items():
+        actual_value = actual.get(dotted)
+        if actual_value != expected:
+            raise RuntimeError(
+                f"pipeline never saw your parameters: {dotted} is {actual_value!r}, "
+                f"but you requested {expected!r}"
+            )
+
     return requested
 
 

@@ -30,7 +30,7 @@ pytestmark = pytest.mark.unit
 # ── Retry policy: where it is, and where it deliberately is not ─────────────
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_only_the_network_tasks_carry_retries():
     """The retry map IS the map of where this pipeline touches the network.
 
@@ -50,7 +50,7 @@ def test_only_the_network_tasks_carry_retries():
     )
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_train_and_repro_have_no_retries():
     """Exercise 3's first question, as an assertion.
 
@@ -63,7 +63,7 @@ def test_train_and_repro_have_no_retries():
     assert not tasks.write_params.retries
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_the_network_retries_use_backoff_and_jitter():
     """A fixed delay makes every failed task retry in lockstep.
 
@@ -77,7 +77,7 @@ def test_the_network_retries_use_backoff_and_jitter():
 # ── The parameter trap (Exercise 4) ────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_write_params_edits_the_file_dvc_actually_hashes(tmp_path, settings):
     """A Prefect parameter that never reaches params.yaml is invisible to DVC."""
     import dataclasses
@@ -94,7 +94,7 @@ def test_write_params_edits_the_file_dvc_actually_hashes(tmp_path, settings):
     assert yaml.safe_load(params.read_text())["train"]["family"] == "logreg"
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_verify_params_applied_accepts_a_lock_that_agrees(tmp_path, settings):
     import dataclasses
 
@@ -105,7 +105,7 @@ def test_verify_params_applied_accepts_a_lock_that_agrees(tmp_path, settings):
     assert tasks.verify_params_applied.fn(sandbox, {"train.C": 0.01}) == {"train.C": 0.01}
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_verify_params_applied_catches_a_pipeline_that_never_saw_the_override(
     tmp_path, settings
 ):
@@ -126,7 +126,7 @@ def test_verify_params_applied_catches_a_pipeline_that_never_saw_the_override(
         tasks.verify_params_applied.fn(sandbox, {"train.C": 0.01})
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_verify_params_is_a_no_op_when_nothing_was_overridden(tmp_path, settings):
     """An ordinary run passes no parameters and must not need a lock at all."""
     import dataclasses
@@ -138,7 +138,7 @@ def test_verify_params_is_a_no_op_when_nothing_was_overridden(tmp_path, settings
 # ── Retries actually retry (needs the harness) ─────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_a_transient_failure_is_retried_and_then_succeeds(prefect_harness):
     """Proves the policy is real, not decorative.
 
@@ -165,7 +165,7 @@ def test_a_transient_failure_is_retried_and_then_succeeds(prefect_harness):
     assert calls["n"] == 3, "the task did not retry the expected number of times"
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_a_permanent_failure_still_fails_after_its_retries(prefect_harness):
     """Retries delay a real failure; they do not remove it."""
     from prefect import flow, task
@@ -189,7 +189,7 @@ def test_a_permanent_failure_still_fails_after_its_retries(prefect_harness):
 # ── Partial failure (Exercise 5) ───────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_a_failing_task_stops_the_tasks_after_it(prefect_harness):
     """What a partial failure leaves behind.
 
@@ -230,7 +230,7 @@ def test_a_failing_task_stops_the_tasks_after_it(prefect_harness):
 # ── notify runs on both paths ──────────────────────────────────────────────
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_notify_records_a_verdict(tmp_path, settings):
     import dataclasses
 
@@ -243,7 +243,7 @@ def test_notify_records_a_verdict(tmp_path, settings):
     assert "GO" in path.read_text()
 
 
-@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
+#@pytest.mark.skip(reason="Exercises 1-5 — implement the tasks and the flow, then delete this skip marker.")
 def test_notify_records_a_failure_too(tmp_path, settings):
     """A flow that only reports its successes is the Toy Story 2 backup."""
     import dataclasses

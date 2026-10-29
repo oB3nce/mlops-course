@@ -1,0 +1,7 @@
+FAILED — dvc repro failed (exit 255):
+  2026/10/29 15:27:05 INFO mlflow.utils.uv_utils: Detected uv project: found uv.lock and pyproject.toml in E:\Sulis cuccok\MLOps\mlops-course\labs\week-08-prefect-flow\starter
+  2026/10/29 15:27:05 INFO mlflow.utils.environment: Detected uv project at E:\Sulis cuccok\MLOps\mlops-course\labs\week-08-prefect-flow\starter. Attempting to export requirements via 'uv export'.
+  2026/10/29 15:27:05 INFO mlflow.utils.uv_utils: Exported 225 dependencies via uv
+  2026/10/29 15:27:05 INFO mlflow.utils.environment: Successfully exported 225 requirements from uv project. Skipping package capture based inference.
+  2026/10/29 15:27:06 WARNING mlflow.utils.environment: Failed to resolve installed pip version. ``pip`` will be added to conda.yaml environment spec without a version specifier.
+  ERROR: failed to reproduce 'train': failed to run: uv run python src/main.py train, exited with 1

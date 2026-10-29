@@ -544,7 +544,6 @@ def cmd_flow(settings: Settings, args) -> None:
         )
 
     verdict = training_flow(
-        settings=settings,
         push=args.push,
         register_model_version=args.register,
     )
@@ -585,12 +584,17 @@ def cmd_serve(settings: Settings, args) -> None:
     no worker, no infrastructure block. Work pools are the production answer
     and they are a lecture slide, not this lab.
     """
+    from prefect.schedules import Cron
+
     from .flows import scheduled_flow
 
     print(f"Serving `diabetes-training-with-pull` on cron `{args.cron}`.")
     print(f"Open the UI at {settings.prefect_api_url.replace('/api', '')} to watch it.")
     print("Ctrl-C to stop.")
-    scheduled_flow.serve(name="weekly-retrain", cron=args.cron)
+    scheduled_flow.serve(
+        name="weekly-retrain",
+        schedule=Cron(args.cron, timezone="UTC"),
+    )
 
 
 def cmd_ci_explain(settings: Settings, args) -> None:

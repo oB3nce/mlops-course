@@ -94,8 +94,30 @@ def training_flow(
     #   * `notify` has to run on the FAILURE path too. Wrap the body in
     #     try/except, notify with the error, and re-raise. A flow that only
     #     reports its successes is the Toy Story 2 backup with extra steps.
-    print("training_flow is not implemented yet — see the TODO in flows.py (Exercise 1).")
-    return {}
+    settings = load_settings()
+    overrides = {}
+    if C is not None:
+        overrides["train.C"] = C
+    if impute_strategy is not None:
+        overrides["train.impute_strategy"] = impute_strategy
+    if family is not None:
+        overrides["train.family"] = family
+
+    try:
+        build_dataset(settings)
+        applied = write_params(settings, overrides)
+        verdict = run_pipeline(settings)
+        verify_params_applied(settings, applied)
+        if push:
+            push_data(settings)
+        if register_model_version:
+            register_model(settings)
+    except Exception as exc:
+        notify(settings, {}, error=str(exc))
+        raise
+
+    notify(settings, verdict)
+    return verdict
 
 
 @flow(name="diabetes-training-with-pull", log_prints=True)
@@ -122,8 +144,9 @@ def scheduled_flow() -> dict:
     #
     # Do NOT register or promote here, and be ready to say why in a sentence
     # that is not about credentials.
-    print("scheduled_flow is not implemented yet — see the TODO in flows.py (Exercise 6).")
-    return {}
+    settings = load_settings()
+    pull_data(settings)
+    return training_flow()
 
 
 def demo_parameterised(settings: Settings, **overrides) -> dict:
