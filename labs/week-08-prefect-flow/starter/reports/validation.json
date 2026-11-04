@@ -1,0 +1,397 @@
+{
+  "source": "measurements.csv",
+  "schema": "RawMeasurements",
+  "schema_version": "1.0.0",
+  "rows": 769,
+  "columns": [
+    "measurement_date",
+    "pregnancies",
+    "glucose",
+    "blood_pressure",
+    "skin_thickness",
+    "insulin",
+    "bmi",
+    "diabetes_pedigree",
+    "age",
+    "outcome"
+  ],
+  "passed": false,
+  "n_failure_cases": 776,
+  "truncated": true,
+  "failure_cases": [
+    {
+      "schema_context": "Column",
+      "column": "measurement_date",
+      "check": "coerce_dtype('datetime64[ns]')",
+      "failure_case": "99",
+      "row": 461
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 526
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 504
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 505
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 506
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 507
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 508
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 509
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 510
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 511
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 512
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 513
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 514
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 515
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 516
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 517
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 518
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 519
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 520
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 521
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 522
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 523
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 524
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 503
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 502
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 501
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 489
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 480
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 481
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 482
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 483
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 484
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 485
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 486
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 487
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 488
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 490
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 500
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 491
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 492
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 493
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 494
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 495
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 496
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 497
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 498
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 499
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "0",
+      "row": 525
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "isin([0, 1])",
+      "failure_case": "1",
+      "row": 527
+    },
+    {
+      "schema_context": "Column",
+      "column": "outcome",
+      "check": "coerce_dtype('int64')",
+      "failure_case": "2099-01-01",
+      "row": 461
+    }
+  ],
+  "by_check": {
+    "isin([0, 1])": 769,
+    "coerce_dtype('datetime64[ns]')": 1,
+    "coerce_dtype('int64')": 1,
+    "dtype('datetime64[ns]')": 1,
+    "less_than_or_equal_to(20)": 1,
+    "greater_than_or_equal_to(0)": 1,
+    "greater_than(0)": 1,
+    "dtype('int64')": 1
+  },
+  "by_column": {
+    "outcome": 771,
+    "measurement_date": 2,
+    "pregnancies": 1,
+    "glucose": 1,
+    "diabetes_pedigree": 1
+  },
+  "sentinel_zeros": {
+    "glucose": 5,
+    "blood_pressure": 36,
+    "skin_thickness": 228,
+    "insulin": 375,
+    "bmi": 12
+  }
+}

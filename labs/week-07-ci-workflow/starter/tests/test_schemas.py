@@ -18,8 +18,12 @@ from week_07_ci_workflow.schemas import (
 )
 from week_07_ci_workflow.validation import to_nullable, validate_frame
 
+<<<<<<< HEAD
 # TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
 # unit, data, eval or integration.
+=======
+pytestmark = pytest.mark.data
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 
 # One legal row, as strings, exactly as read_raw would hand it over.
 LEGAL_ROW = {

@@ -17,8 +17,12 @@ from week_07_ci_workflow.workflows import (
     uses_refs,
 )
 
+<<<<<<< HEAD
 # TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
 # unit, data, eval or integration.
+=======
+pytestmark = pytest.mark.unit
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 
 WORKFLOW_DIR = Path(__file__).resolve().parents[1] / ".github" / "workflows"
 
@@ -53,14 +57,22 @@ def test_workflows_live_in_a_github_workflows_directory():
 # ── Triggers ─────────────────────────────────────────────────────────────────
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_ci_is_triggered_by_code_changing(ci):
     fired_by = triggers(ci)
     assert "push" in fired_by
     assert "pull_request" in fired_by
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_ct_is_triggered_by_time_or_a_human_not_by_code(ct):
     """CT runs on a clock or by hand, never on a push."""
     fired_by = triggers(ct)
@@ -71,7 +83,11 @@ def test_ct_is_triggered_by_time_or_a_human_not_by_code(ct):
     )
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_ct_schedule_declares_a_cron(ct):
     schedule = triggers(ct)["schedule"]
     assert isinstance(schedule, list) and schedule, "schedule: needs at least one entry"
@@ -81,12 +97,20 @@ def test_ct_schedule_declares_a_cron(ct):
 # ── The job graph ────────────────────────────────────────────────────────────
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_ci_has_the_three_jobs(ci):
     assert set(ci["jobs"]) >= {"lint", "test", "pipeline"}
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_pipeline_waits_for_lint_and_tests(ci):
     """The pipeline job runs only after lint and the tests pass."""
     needs = ci["jobs"]["pipeline"]["needs"]
@@ -94,14 +118,22 @@ def test_pipeline_waits_for_lint_and_tests(ci):
     assert set(needs) == {"lint", "test"}
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_the_test_job_fans_out_over_the_pyramid_layers(ci):
     """One test job per layer."""
     matrix = ci["jobs"]["test"]["strategy"]["matrix"]
     assert set(matrix["layer"]) == {"unit", "data", "eval"}
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_the_matrix_does_not_fail_fast(ci):
     """One failing layer does not cancel the others."""
     assert ci["jobs"]["test"]["strategy"]["fail-fast"] is False
@@ -110,20 +142,32 @@ def test_the_matrix_does_not_fail_fast(ci):
 # ── One definition of the build ──────────────────────────────────────────────
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_both_workflows_invoke_the_project_makefile(ci, ct):
     assert make_targets(ci), "ci.yml runs no make target — is it re-listing commands?"
     assert make_targets(ct), "ct.yml runs no make target — is it re-listing commands?"
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_ci_and_ct_share_a_gate_summary_step(ci, ct):
     """Both workflows write the verdict with the same target."""
     assert "gate-summary" in make_targets(ci)
     assert "gate-summary" in make_targets(ct)
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_neither_workflow_reimplements_the_pipeline(ci, ct):
     """Workflows call make targets, never the pipeline commands themselves."""
     from week_07_ci_workflow.workflows import run_commands
@@ -136,7 +180,11 @@ def test_neither_workflow_reimplements_the_pipeline(ci, ct):
             )
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_every_make_target_a_workflow_calls_actually_exists(ci, ct):
     """Every make target a workflow calls is defined in the Makefile."""
     makefile = (Path(__file__).resolve().parents[1] / "Makefile").read_text()
@@ -158,7 +206,11 @@ def test_every_make_target_a_workflow_calls_actually_exists(ci, ct):
             )
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_ci_runs_one_target_per_pyramid_layer(ci):
     """The matrix calls the per-layer test targets."""
     targets = make_targets(ci)
@@ -171,7 +223,11 @@ def test_ci_runs_one_target_per_pyramid_layer(ci):
 # ── Pins ─────────────────────────────────────────────────────────────────────
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_every_action_is_pinned_to_a_version_not_a_branch(ci, ct):
     """No action is pinned to a branch."""
     for name, workflow in (("ci.yml", ci), ("ct.yml", ct)):
@@ -182,7 +238,11 @@ def test_every_action_is_pinned_to_a_version_not_a_branch(ci, ct):
             )
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_the_labs_own_actions_are_not_stale(ci, ct):
     """No action pin is older than the snapshot in workflows.py."""
     stale = []
@@ -197,7 +257,11 @@ def test_the_labs_own_actions_are_not_stale(ci, ct):
 # ── Working directory ────────────────────────────────────────────────────────
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 5: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_workflows_run_inside_this_lab(ci, ct):
     """Every `run:` starts in this lab's folder, not at the repository root."""
     for name, workflow in (("ci.yml", ci), ("ct.yml", ct)):
@@ -207,7 +271,11 @@ def test_workflows_run_inside_this_lab(ci, ct):
         )
 
 
+<<<<<<< HEAD
 @pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+=======
+#@pytest.mark.skip(reason="Exercise 4: delete this marker when the workflow is written.")
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 def test_the_evidence_is_uploaded_even_when_the_gate_refuses(ci):
     """The artifacts are uploaded even when the gate fails."""
     steps = ci["jobs"]["pipeline"]["steps"]

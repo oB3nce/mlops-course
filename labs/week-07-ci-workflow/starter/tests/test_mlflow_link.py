@@ -14,8 +14,13 @@ from week_07_ci_workflow.dvc_meta import pointer_md5
 from week_07_ci_workflow.schemas import SCHEMA_VERSION
 from week_07_ci_workflow.tracking import search_runs_by_data_version
 
+<<<<<<< HEAD
 # TODO(student) Exercise 3: add this module's layer to the list, next to the guard.
 pytestmark = [pytest.mark.live]
+=======
+# integration: these assertions trace model outputs and artifacts through the live MLflow service.
+pytestmark = [pytest.mark.live, pytest.mark.integration]
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 
 
 @pytest.fixture(scope="module")

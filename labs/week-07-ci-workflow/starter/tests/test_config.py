@@ -2,8 +2,12 @@ import pytest
 
 from week_07_ci_workflow.config import Settings, load_settings
 
+<<<<<<< HEAD
 # TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
 # unit, data, eval or integration.
+=======
+pytestmark = pytest.mark.unit
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 
 
 def test_settings_defaults() -> None:

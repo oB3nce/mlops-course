@@ -9,8 +9,13 @@ import pytest
 from week_07_ci_workflow import pipeline
 from week_07_ci_workflow.data import FEATURE_COLUMNS, load_measurements
 
+<<<<<<< HEAD
 # TODO(student) Exercise 3: mark this module's layer with `pytestmark`:
 # unit, data, eval or integration.
+=======
+# eval: it checks trained-model outputs and metrics across pipeline stages.
+pytestmark = pytest.mark.eval
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 
 
 @pytest.fixture

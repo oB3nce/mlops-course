@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 outs:
 - md5: a8fd7b4f0d6d1bc4e378a8f76c5fff0c
   size: 31750
   hash: md5
   path: measurements.csv
+=======
+outs:
+- md5: a8fd7b4f0d6d1bc4e378a8f76c5fff0c
+  size: 31750
+  hash: md5
+  path: measurements.csv
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c

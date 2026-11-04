@@ -1,0 +1,75 @@
+name: Week 7 CI
+
+on:
+  push:
+    paths:
+      - "labs/week-07-ci-workflow/starter/**"
+      - ".github/workflows/week07-ci.yml"
+  pull_request:
+    paths:
+      - "labs/week-07-ci-workflow/starter/**"
+      - ".github/workflows/week07-ci.yml"
+
+defaults:
+  run:
+    working-directory: labs/week-07-ci-workflow/starter
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v9.0.0
+      - name: Install lint dependencies
+        run: uv sync --group lint
+      - name: Lint
+        run: make lint
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        layer: [unit, data, eval]
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v9.0.0
+      - name: Install dependencies
+        run: uv sync --all-groups
+      - name: Test ${{ matrix.layer }} layer
+        run: make test-${{ matrix.layer }}
+
+  pipeline:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v9.0.0
+      - name: Install dependencies
+        run: uv sync --all-groups
+      - name: Rebuild the dataset
+        run: make data-v2
+      - name: "validate -> prepare -> train -> evaluate -> gate"
+        run: make ci
+      - name: Publish the gate verdict to the job summary
+        if: always()
+        run: make gate-summary >> "$GITHUB_STEP_SUMMARY"
+      - name: Annotate a NO-GO
+        if: failure()
+        run: echo "::error::CI failed; inspect the gate verdict and uploaded evidence."
+      - name: Upload the evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: week-7-ci-evidence
+          path: |
+            labs/week-07-ci-workflow/starter/metrics/
+            labs/week-07-ci-workflow/starter/reports/
+            labs/week-07-ci-workflow/starter/models/model.pkl
+          if-no-files-found: warn

@@ -1,6 +1,10 @@
 # What is published
 
+<<<<<<< HEAD
 Generated 2026-10-20. Course materials are released week by week —
+=======
+Generated 2026-10-28. Course materials are released week by week —
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 a week appears here on the morning of its lecture.
 
 Run `git pull upstream main` in your fork to fetch the latest.
@@ -15,7 +19,11 @@ Run `git pull upstream main` in your fork to fetch the latest.
 | 5 | data quality | published |
 | 6 | model quality gates | published |
 | 7 | ci ct | published |
+<<<<<<< HEAD
 | 8 | orchestration | arrives 2026-10-26 |
+=======
+| 8 | orchestration | published |
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 | 9 | serving | arrives 2026-11-02 |
 | 10 | rollout strategies | arrives 2026-11-09 |
 | 11 | observability | arrives 2026-11-16 |

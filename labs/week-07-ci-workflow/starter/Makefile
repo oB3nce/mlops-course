@@ -286,9 +286,19 @@ ensure-data:
 # TODO(student) Exercise 2: list the targets `ci` runs, in order, after the two
 # ensure-* targets. Reuse targets that already exist above; do not copy their recipes.
 # `make` stops at the first target that fails.
+<<<<<<< HEAD
 ci: ensure-env ensure-data
 	@echo "make ci is not written yet (Exercise 2)."
 	@exit 1
+=======
+ci: ensure-env ensure-data lint test-unit test-data test-eval repro gate
+	@echo "==> lint";     $(MAKE) --no-print-directory lint
+	@echo "==> unit";     $(MAKE) --no-print-directory test-unit
+	@echo "==> data";     $(MAKE) --no-print-directory test-data
+	@echo "==> eval";     $(MAKE) --no-print-directory test-eval
+	@echo "==> pipeline"; $(MAKE) --no-print-directory repro
+	@echo "==> gate";     $(MAKE) --no-print-directory gate
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 
 ## The steps of ci.yml on your machine, in the runner's order
 ci-local: ensure-env ensure-data
@@ -301,7 +311,11 @@ ci-local: ensure-env ensure-data
 
 ## The steps of ct.yml: retrain and gate, with no code change
 ct-local: ensure-env ensure-data
+<<<<<<< HEAD
 	$(MAKE) --no-print-directory repro
+=======
+	$(DVC) repro --force
+>>>>>>> 562093d42a70bd30ba7eb75326650f4c4551689c
 	$(MAKE) --no-print-directory gate
 
 ## Plant train.C 0.005, run `make ci`, and restore params.yaml; `make ci` must fail
