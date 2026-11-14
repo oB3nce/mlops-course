@@ -112,14 +112,52 @@ def check_contract(client: Caller) -> list[Check]:
 
 def check_behaviour(client: Caller, *, min_spread: float = DEFAULT_MIN_SPREAD) -> list[Check]:
     """Does the model still tell a clearly ill patient from a healthy one?"""
-    # TODO(student) Exercise 2: POST `CLEARLY_POSITIVE` and `CLEARLY_NEGATIVE` to /predict.
-    # If either answer is not HTTP 200, return one failed Check named "behaviour.positive"
-    # or "behaviour.negative". Otherwise return three Checks, in this order:
-    #   "behaviour.positive_is_positive"  the positive patient's prediction is 1
-    #   "behaviour.negative_is_negative"  the negative patient's prediction is 0
-    #   "behaviour.not_a_constant"        the two probabilities differ by at least min_spread
-    # Put the probabilities you saw in each Check's detail; check_identity above has the same shape.
-    raise NotImplementedError("Exercise 2: write check_behaviour() in smoke.py")
+    positive = client.post("/predict", json=CLEARLY_POSITIVE)
+    if positive.status_code != 200:
+        return [
+            Check(
+                "behaviour.positive",
+                False,
+                f"CLEARLY_POSITIVE returned {positive.status_code}, expected 200",
+            )
+        ]
+
+    negative = client.post("/predict", json=CLEARLY_NEGATIVE)
+    if negative.status_code != 200:
+        return [
+            Check(
+                "behaviour.negative",
+                False,
+                f"CLEARLY_NEGATIVE returned {negative.status_code}, expected 200",
+            )
+        ]
+
+    positive_body = positive.json()
+    negative_body = negative.json()
+    positive_prediction = positive_body["prediction"]
+    negative_prediction = negative_body["prediction"]
+    positive_probability = positive_body["probability"]
+    negative_probability = negative_body["probability"]
+    spread = abs(positive_probability - negative_probability)
+
+    return [
+        Check(
+            "behaviour.positive_is_positive",
+            positive_prediction == 1,
+            f"prediction={positive_prediction} p={positive_probability}",
+        ),
+        Check(
+            "behaviour.negative_is_negative",
+            negative_prediction == 0,
+            f"prediction={negative_prediction} p={negative_probability}",
+        ),
+        Check(
+            "behaviour.not_a_constant",
+            spread >= min_spread,
+            f"p_positive={positive_probability} p_negative={negative_probability} "
+            f"spread={spread} min_spread={min_spread}",
+        ),
+    ]
 
 
 def check_protocol(client: Caller) -> list[Check]:
