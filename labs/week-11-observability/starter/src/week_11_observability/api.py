@@ -378,8 +378,6 @@ def create_app(registry: CollectorRegistry | None = None) -> FastAPI:
             # against the availability SLO. The service did exactly what Week 5
             # designed it to do. Counting a caller's bad data as our failure
             # would let anyone burn our error budget by sending rubbish.
-            # TODO(student) Exercise 1 — count the violation, by CHECK NAME.
-            #
             # `report["by_check"]` maps a check name to how many times it
             # failed. The label must be the check name — a small closed set
             # fixed by the pandera schema — and never the offending value,
@@ -387,6 +385,8 @@ def create_app(registry: CollectorRegistry | None = None) -> FastAPI:
             # 422, naming the field AND the check that failed. A caller who
             # gets "invalid input" learns nothing; a caller who gets
             # "glucose failed greater_than(0)" can fix their request.
+            for check, count in report["by_check"].items():
+                app.state.metrics["violations"].labels(check=check).inc(count)
             raise HTTPException(
                 status_code=422,
                 detail={
@@ -409,10 +409,9 @@ def create_app(registry: CollectorRegistry | None = None) -> FastAPI:
         # everything is broken in a way that no latency or error-rate graph can
         # show. Watching that shape MOVE, against a reference, is drift, and
         # drift is Week 12; this week only ever emits it.
-        # TODO(student) Exercise 1 — the two signals that are about the MODEL
-        # rather than the server: count the prediction by outcome
-        # ("positive"/"negative", so the cardinality cost is 2) and observe the
-        # probability on the score histogram.
+        outcome = "positive" if probability >= 0.5 else "negative"
+        app.state.metrics["predictions"].labels(outcome=outcome).inc()
+        app.state.metrics["score"].observe(probability)
 
         return PredictionResponse(
             prediction=int(probability >= 0.5),
